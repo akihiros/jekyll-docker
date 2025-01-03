@@ -13,5 +13,5 @@ if [ -f Gemfile ]; then
   echo "Gemfile is exist. start bundle install..."
   bundle install
 fi
-0
+
 exec bundle exec jekyll "$@" --host 0.0.0.0
