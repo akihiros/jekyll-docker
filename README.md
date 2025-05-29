@@ -1,12 +1,12 @@
 # jekyll-docker
 
 - [1. Overview](#1-overview)
-- [Update](#update)
-- [2. Usage Instructions](#2-usage-instructions)
-- [3. Reference](#3-reference)
-  - [3.1. Local Build](#31-local-build)
-  - [3.2. Without docker-compose.yml](#32-without-docker-composeyml)
-  - [3.3. Push to Docker Hub](#33-push-to-docker-hub)
+- [2. Update](#2-update)
+- [3. Usage Instructions](#3-usage-instructions)
+- [4. Reference](#4-reference)
+  - [4.1. Local Build](#41-local-build)
+  - [4.2. Without docker-compose.yml](#42-without-docker-composeyml)
+  - [4.3. Push to Docker Hub](#43-push-to-docker-hub)
 
 ## 1. Overview
 
@@ -15,13 +15,13 @@
 - Prerequisites: Please prepare a Jekyll project
   - Example: [akihiros.github.io](https://github.com/akihiros/akihiros.github.io)
 
-## Update
+## 2. Update
 
 | date | content | note |
 |------|---------|------|
 | 2025/5/30 | Replace ruby:alpine-3.4 | |
 
-## 2. Usage Instructions
+## 3. Usage Instructions
 
 - Navigate to the Jekyll project folder you want to run locally and execute
 
@@ -54,9 +54,9 @@ services:
 $ sudo docker-compose up
 ```
 
-## 3. Reference
+## 4. Reference
 
-### 3.1. Local Build
+### 4.1. Local Build
 
 - Refer to this section if you want to customize and build locally
 - Execute in the root directory of this repository
@@ -66,13 +66,13 @@ $ git clone https://github.com/akihiros1207/jekyll-docker.git
 $ sudo docker build . -t jekyll-env
 ```
 
-### 3.2. Without docker-compose.yml
+### 4.2. Without docker-compose.yml
 
 ```sh
 sudo docker run --rm -it -p 4000:4000 -v $(pwd):/jekyll jekyll-env
 ```
 
-### 3.3. Push to Docker Hub
+### 4.3. Push to Docker Hub
 
 ```sh
 sudo docker build . -t jekyll-env
