@@ -1,69 +1,85 @@
 # jekyll-docker
 
-## 概要
+- [1. Overview](#1-overview)
+- [Update](#update)
+- [2. Usage Instructions](#2-usage-instructions)
+- [3. Reference](#3-reference)
+  - [3.1. Local Build](#31-local-build)
+  - [3.2. Without docker-compose.yml](#32-without-docker-composeyml)
+  - [3.3. Push to Docker Hub](#33-push-to-docker-hub)
 
-- github pagesの利用を目的としてjekyll環境を立ち上げます
-- docker imageはrubyのオフィシャルイメージ(alpine)を利用しています
-- 前提としてjekyllのPJを用意してください
-  - 例：[akihiros.github.io](https://github.com/akihiros/akihiros.github.io)
+## 1. Overview
 
-## 使い方
+- Sets up a Jekyll environment for the purpose of using GitHub Pages
+- Uses the official Ruby Docker image (alpine)
+- Prerequisites: Please prepare a Jekyll project
+  - Example: [akihiros.github.io](https://github.com/akihiros/akihiros.github.io)
 
-- 当リポジトリの配下で実行します
+## Update
 
-```sh
-# ビルド
-$ sudo docker build . -t jekyll
+| date | content | note |
+|------|---------|------|
+| 2025/5/30 | Replace ruby:alpine-3.4 | |
 
-# ビルド結果の例
-$ sudo docker images
-REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
-jekyll       latest    242cd1664d71   1 minutes ago   467MB
-```
+## 2. Usage Instructions
 
-### docker runの場合
-
-- ローカルで起動したいjekyllのPJフォルダに移動して実行します
-
-```sh
-# run
-# Ctrl+Cを押すまで起動し続けます
-$ sudo docker run --rm -it -p 4000:4000 -v $(pwd):/jekyll jekyll
-```
-
-### docker-composeの場合
+- Navigate to the Jekyll project folder you want to run locally and execute
 
 ```sh
-# 事前にインストールされている場合は不要
-$ sudo apt update
-$ sudo apt upgrade
-$ sudo apt install docker-compose
+# pull image
+sudo docker pull akihiros1207/jekyll-env:latest
+
+# run container
+sudo docker run --rm -it -p 4000:4000 -v $(pwd):/jekyll akihiros1207/jekyll-env
 ```
 
-- jekyllのPJフォルダにdocker-compose.ymlを作成
+- Create `docker-compose.yml` in your Jekyll project
 
 ```yml
-version: '3'
+# docker-compose.yml
+version: '3.8'
 services:
   jekyll:
-    image: jekyll
-    container_name: jekyll-site
-    command: serve
+    image: akihiros1207/jekyll-env
     ports:
-      - 4000:4000
+      - "4000:4000"
     volumes:
       - .:/jekyll
+    stdin_open: true
+    tty: true
 ```
 
-- 実行・停止
+```sh
+# accessible at http://0.0.0.0:4000
+$ sudo docker-compose up
+```
+
+## 3. Reference
+
+### 3.1. Local Build
+
+- Refer to this section if you want to customize and build locally
+- Execute in the root directory of this repository
 
 ```sh
-# 起動
-$ sudo docker-compose up -d
+$ git clone https://github.com/akihiros1207/jekyll-docker.git
+$ sudo docker build . -t jekyll-env
+```
 
-# リアルタイムにログ確認
-$ sudo docker-compose logs -f
+### 3.2. Without docker-compose.yml
 
-# 削除停止
-$ sudo docker-compose down
+```sh
+sudo docker run --rm -it -p 4000:4000 -v $(pwd):/jekyll jekyll-env
+```
+
+### 3.3. Push to Docker Hub
+
+```sh
+sudo docker build . -t jekyll-env
+
+docker tag jekyll-env akihiros1207/jekyll-env:latest
+docker tag jekyll-env akihiros1207/jekyll-env:ruby3.4-alpine
+
+docker push akihiros1207/jekyll-env:latest
+docker push akihiros1207/jekyll-env:ruby3.4-alpine
 ```

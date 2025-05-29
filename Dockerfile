@@ -1,7 +1,7 @@
 # --------------------------------------------------------------
 # Dockerfile
 # --------------------------------------------------------------
-FROM ruby:3.2-alpine
+FROM ruby:3.4-alpine
 
 # パッケージをアップデート & 必要ツールをインストール
 RUN apk update && apk --no-cache upgrade && \
@@ -37,4 +37,3 @@ EXPOSE 4000
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 # デフォルトは "serve" とする ("build" など別のコマンドに切り替え可能)
 CMD ["serve"]
-
