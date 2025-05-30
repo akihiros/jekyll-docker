@@ -19,18 +19,14 @@
 
 | date | content | note |
 |------|---------|------|
-| 2025/5/30 | Replace ruby:alpine-3.4 | |
+| 2025/5/30 | Supports ruby:alpine-3.4 | |
 
 ## 3. Usage Instructions
 
 - Navigate to the Jekyll project folder you want to run locally and execute
 
 ```sh
-# pull image
-sudo docker pull akihiros1207/jekyll-env:latest
-
-# run container
-sudo docker run --rm -it -p 4000:4000 -v $(pwd):/jekyll akihiros1207/jekyll-env
+$ docker pull akihiros1207/jekyll-env:latest
 ```
 
 - Create `docker-compose.yml` in your Jekyll project
@@ -51,7 +47,7 @@ services:
 
 ```sh
 # accessible at http://0.0.0.0:4000
-$ sudo docker-compose up
+$ docker-compose up
 ```
 
 ## 4. Reference
@@ -63,23 +59,27 @@ $ sudo docker-compose up
 
 ```sh
 $ git clone https://github.com/akihiros1207/jekyll-docker.git
-$ sudo docker build . -t jekyll-env
+
+# Customize Dockerfile
+$ vi Dockerfile
+
+$ docker build . -t jekyll-env
 ```
 
 ### 4.2. Without docker-compose.yml
 
 ```sh
-sudo docker run --rm -it -p 4000:4000 -v $(pwd):/jekyll jekyll-env
+$ docker run --rm -it -p 4000:4000 -v $(pwd):/jekyll akihiros1207/jekyll-env
 ```
 
 ### 4.3. Push to Docker Hub
 
 ```sh
-sudo docker build . -t jekyll-env
+$ docker build . -t jekyll-env
 
-docker tag jekyll-env akihiros1207/jekyll-env:latest
-docker tag jekyll-env akihiros1207/jekyll-env:ruby3.4-alpine
+$ docker tag jekyll-env akihiros1207/jekyll-env:latest
+$ docker tag jekyll-env akihiros1207/jekyll-env:ruby3.4-alpine
 
-docker push akihiros1207/jekyll-env:latest
-docker push akihiros1207/jekyll-env:ruby3.4-alpine
+$ docker push akihiros1207/jekyll-env:latest
+$ docker push akihiros1207/jekyll-env:ruby3.4-alpine
 ```
