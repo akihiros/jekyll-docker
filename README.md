@@ -77,9 +77,13 @@ $ docker run --rm -it -p 4000:4000 -v $(pwd):/jekyll akihiros1207/jekyll-env
 ```sh
 $ docker build . -t jekyll-env
 
-$ docker tag jekyll-env akihiros1207/jekyll-env:latest
-$ docker tag jekyll-env akihiros1207/jekyll-env:ruby3.4-alpine
+# Replace "user_name" with the actual Docker Hub username
+# ex; docker tag jekyll-env akihiros1207/jekyll-env:latest
+$ docker tag jekyll-env user_name/jekyll-env:latest
+$ docker tag jekyll-env user_name/jekyll-env:ruby3.4-alpine
 
-$ docker push akihiros1207/jekyll-env:latest
-$ docker push akihiros1207/jekyll-env:ruby3.4-alpine
+# Replace "user_name" with the actual Docker Hub username
+# ex; docker push akihiros1207/jekyll-env:latest
+$ docker push user_name/jekyll-env:latest
+$ docker push user_name/jekyll-env:ruby3.4-alpine
 ```
